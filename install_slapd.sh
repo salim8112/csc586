@@ -48,4 +48,3 @@ gecos: Golden Ram
 loginShell: /bin/dash
 homeDirectory: /home/student
 EOF
-
