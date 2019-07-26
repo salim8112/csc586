@@ -1,7 +1,7 @@
 #!/bin/bash
+sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
 
-echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/generated_adminpw  password test" |sudo debconf-set-selections
 echo -e "slapd slapd/password2 password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/adminpw  password test" |sudo debconf-set-selections
@@ -22,7 +22,6 @@ echo -e "slapd slapd/no_configuration  boolean false" |sudo debconf-set-selectio
 echo -e "slapd slapd/invalid_config    boolean true" |sudo debconf-set-selections
 
 # Grab slapd and ldap-utils (pre-seeded)
-sudo apt-get update
 sudo apt-get install -y slapd ldap-utils
 
 # Must reconfigure slapd for it to work properly 
