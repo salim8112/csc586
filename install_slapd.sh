@@ -1,5 +1,5 @@
 #!/bin/bash
-export DEBIAN_FRONTEND= 'non-interactive'
+export DEBIAN_FRONTEND=noninteractive
 
 echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/generated_adminpw  password test" |sudo debconf-set-selections
