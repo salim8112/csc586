@@ -48,3 +48,4 @@ gecos: Golden Ram
 loginShell: /bin/dash
 homeDirectory: /home/student
 EOF
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f users.ldif
