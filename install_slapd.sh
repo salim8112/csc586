@@ -27,3 +27,25 @@ sudo apt-get install -y slapd ldap-utils
 # Must reconfigure slapd for it to work properly 
 sudo dpkg-reconfigure slapd 
 sudo ufw allow ldap
+
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f basedn.ldif
+
+PASS=$(slappasswd -s rammy)
+cat<<EOF> /local/repository/users.ldif
+dn: uid=student,ou=People,dc=clemson,dc=cloudlab,dc=us
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: student
+sn: Ram
+givenName: Golden
+cn: student
+displayName: student
+uidNumber: 10000
+gidNumber: 5000
+userPassword: {SSHA}TOL9DTDPu3A7C6VwpRHIBp7EhJWCjhCY
+gecos: Golden Ram
+loginShell: /bin/dash
+homeDirectory: /home/student
+EOF
+
