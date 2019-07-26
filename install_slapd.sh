@@ -19,7 +19,7 @@ echo -e "slapd slapd/purge_database    boolean false" |debconf-set-selections
 
 # Grab slapd and ldap-utils (pre-seeded)
 sudo apt-get update
-apt-get install -y slapd ldap-utils
+sudo apt-get install -y slapd ldap-utils
 
 # Must reconfigure slapd for it to work properly 
 sudo dpkg-reconfigure slapd 
