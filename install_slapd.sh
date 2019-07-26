@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 export DEBIAN_FRONTEND= 'non-interactive'
 
 echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
