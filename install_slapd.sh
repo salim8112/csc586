@@ -3,34 +3,32 @@
 sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
 
-echo -e " 
-slapd slapd/internal/generated_adminpw password test
-slapd slapd/no_configuration boolean false
-slapd slapd/invalid_config boolean true
-slapd slapd/domain string wisc.cloudlab.us
-slapd slapd/organization string clemson.cloudlab.us
-slapd slapd/internal/adminpw password test
-slapd slapd/backend select MDB
-slapd slapd/purge_database boolean true
-slapd slapd/dump_databse_destdir string /var/backups/slapd-VERSION
-slapd slapd/dump_databse select when needed
-slapd slapd/move_old_database boolean true
-slapd slapd/password2 password test
-slapd slapd/password1 password test
-slapd slapd/password_mismatch note
-slapd slapd/policy_schema_needs_update select abort installation
-slapd slapd/unsafe_selfwrite_acl note
-slapd slapd/upgrade_slapcat_failure error
-slapd slapd/allow_ldap_v2 boolean false
-" | sudo debconf-set-selections
+echo -e "slapd slapd/internal/generated_adminpw  password test" |sudo debconf-set-selections
+echo -e "slapd slapd/password2 password test" |sudo debconf-set-selections
+echo -e "slapd slapd/internal/adminpw  password test" |sudo debconf-set-selections
+echo -e "slapd slapd/password1 password test" |sudo debconf-set-selections 
+echo -e "slapd slapd/domain  string  clemson.cloudlab.us" |sudo debconf-set-selections
+echo -e "slapd shared/organization  string  clemson.cloudlab.us" |sudo debconf-set-selections
+echo -e "slapd slapd/unsafe_selfwrite_acl  note" |sudo debconf-set-selections
+echo -e "slapd slapd/ppolicy_schema_needs_update   select  abort installation" |sudo debconf-set-selections
+echo -e "slapd slapd/password_mismatch note" |sudo debconf-set-selections
+echo -e "slapd slapd/backend  select  MDB" |sudo debconf-set-selections
+echo -e "slapd slapd/purge_database boolean false" |sudo debconf-set-selections
+echo -e "slapd slapd/dump_database_destdir string  /var/backups/slapd-VERSION" |sudo debconf-set-selections
+echo -e "slapd slapd/move_old_database boolean true" |sudo debconf-set-selections
+echo -e "slapd slapd/upgrade_slapcat_failure error" |sudo debconf-set-selections
+echo -e "slapd slapd/dump_database   select  when needed" |sudo debconf-set-selections
+echo -e "slapd slapd/allow_ldap_v2 boolean false" |sudo debconf-set-selections
+echo -e "slapd slapd/no_configuration  boolean false" |sudo debconf-set-selections
+echo -e "slapd slapd/invalid_config    boolean true" |sudo debconf-set-selections
 
-
+# Grab slapd and ldap-utils (pre-seeded)
 sudo apt-get install -y slapd ldap-utils
-#sudo dpkg-reconfigure slapd
+# Must reconfigure slapd for it to work properly 
+sudo dpkg-reconfigure slapd 
 sudo ufw allow ldap
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f basedn.ldif
 
-#echo   -n  PASS=$(slappasswd -s rammy) | awk '{print PASS}'
 PASS=$(slappasswd -s rammy)
 cat <<EOF >/local/repository/users.ldif
 dn: uid=student,ou=People,dc=clemson,dc=cloudlab,dc=us
