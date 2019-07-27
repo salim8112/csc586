@@ -27,7 +27,7 @@ sudo apt-get install -y slapd ldap-utils
 # Must reconfigure slapd for it to work properly 
 sudo dpkg-reconfigure slapd 
 sudo ufw allow ldap
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f basedn.ldif
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f /local/repository/basedn.ldif
 
 PASS=$(slappasswd -s rammy)
 cat <<EOF >/local/repository/users.ldif
@@ -48,4 +48,4 @@ loginShell: /bin/dash
 homeDirectory: /home/student
 EOF
 
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f users.ldif
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f /local/repository/users.ldif
