@@ -2,8 +2,8 @@
 sudo apt-get update
 
 echo -e " 
-ldap-auth-config        ldap-auth-config/rootbindpw     password abcd123
-ldap-auth-config        ldap-auth-config/bindpw password abcd123
+ldap-auth-config        ldap-auth-config/rootbindpw     password test
+ldap-auth-config        ldap-auth-config/bindpw password test
 ldap-auth-config        ldap-auth-config/binddn string  cn=proxyuser,dc=example,dc=net
 ldap-auth-config        ldap-auth-config/override       boolean true
 ldap-auth-config        ldap-auth-config/pam_password   select  md5
