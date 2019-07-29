@@ -14,10 +14,10 @@ echo -e "slapd slapd/password1 password test" |sudo debconf-set-selections
 echo -e "slapd slapd/domain  string  clemson.cloudlab.us" |sudo debconf-set-selections
 echo -e "slapd shared/organization  string  clemson.cloudlab.us" |sudo debconf-set-selections
 echo -e "slapd slapd/unsafe_selfwrite_acl  note" |sudo debconf-set-selections
-echo -e "slapd slapd/ppolicy_schema_needs_update   select  abort installation" |sudo debconf-set-selections
+echo -e "slapd slapd/policy_schema_needs_update   select  abort installation" |sudo debconf-set-selections
 echo -e "slapd slapd/password_mismatch note" |sudo debconf-set-selections
 echo -e "slapd slapd/backend  select  MDB" |sudo debconf-set-selections
-echo -e "slapd slapd/purge_database boolean false" |sudo debconf-set-selections
+echo -e "slapd slapd/purge_database boolean true" |sudo debconf-set-selections
 echo -e "slapd slapd/dump_database_destdir string  /var/backups/slapd-VERSION" |sudo debconf-set-selections
 echo -e "slapd slapd/move_old_database boolean true" |sudo debconf-set-selections
 echo -e "slapd slapd/upgrade_slapcat_failure error" |sudo debconf-set-selections
