@@ -2,6 +2,7 @@
 
 sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
+sudo apt-get install -y slapd ldap-utils
 
 echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
 echo -e "slapd slapd/root_password_again password test" |sudo debconf-set-selections
@@ -24,7 +25,7 @@ echo -e "slapd slapd/invalid_config    boolean true" |sudo debconf-set-selection
 echo -e "slapd shared/organization  string  clemson.cloudlab.us" |sudo debconf-set-selections
 
 # Grab slapd and ldap-utils (pre-seeded)
-sudo apt-get install -y slapd ldap-utils
+#sudo apt-get install -y slapd ldap-utils
 # Must reconfigure slapd for it to work properly 
 sudo dpkg-reconfigure slapd 
 sudo ufw allow ldap
