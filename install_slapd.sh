@@ -2,15 +2,15 @@
 
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update
-sudo apt-get install -y slapd ldap-utils
+#sudo apt-get install -y slapd ldap-utils
 
-echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
-echo -e "slapd slapd/root_password_again password test" |sudo debconf-set-selections
-sudo dpkg-reconfigure slapd
+#echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
+#echo -e "slapd slapd/root_password_again password test" |sudo debconf-set-selections
+#sudo dpkg-reconfigure slapd
 echo -e "slapd slapd/internal/generated_adminpw  password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/adminpw  password test" |sudo debconf-set-selections
 echo -e "slapd slapd/no_configuration  boolean false" |sudo debconf-set-selections
-#echo -e "slapd slapd/invalid_config    boolean true" |sudo debconf-set-selections
+echo -e "slapd slapd/invalid_config    boolean true" |sudo debconf-set-selections
 echo -e "slapd slapd/domain  string  clemson.cloudlab.us" |sudo debconf-set-selections
 echo -e "slapd shared/organization  string  clemson.cloudlab.us" |sudo debconf-set-selections
 echo -e "slapd slapd/password2 password test" |sudo debconf-set-selections
@@ -27,9 +27,9 @@ echo -e "slapd slapd/upgrade_slapcat_failure error" |sudo debconf-set-selections
 echo -e "slapd slapd/allow_ldap_v2 boolean false" |sudo debconf-set-selections
 
 # Grab slapd and ldap-utils (pre-seeded)
-#sudo apt-get install -y slapd ldap-utils
+sudo apt-get install -y slapd ldap-utils
 # Must reconfigure slapd for it to work properly 
-#sudo dpkg-reconfigure slapd 
+sudo dpkg-reconfigure slapd 
 sudo ufw allow ldap
 #ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f /local/repository/basedn.ldif
 
