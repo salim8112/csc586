@@ -3,8 +3,8 @@
 sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
 
-echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
-echo -e "slapd slapd/root_password_again password test" |sudo debconf-set-selections
+#echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
+#echo -e "slapd slapd/root_password_again password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/generated_adminpw  password test" |sudo debconf-set-selections
 echo -e "slapd slapd/password2 password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/adminpw  password test" |sudo debconf-set-selections
@@ -29,7 +29,7 @@ sudo apt-get install -y slapd ldap-utils
 # Must reconfigure slapd for it to work properly 
 sudo dpkg-reconfigure slapd 
 sudo ufw allow ldap
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f /local/repository/basedn.ldif
+sudo ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f /local/repository/basedn.ldif
 
 PASS=$(slappasswd -s rammy)
 cat <<EOF >/local/repository/users.ldif
@@ -50,4 +50,4 @@ loginShell: /bin/dash
 homeDirectory: /home/student
 EOF
 
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f /local/repository/users.ldif
+sudo ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f /local/repository/users.ldif
