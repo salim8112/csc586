@@ -6,6 +6,8 @@ sudo apt-get install -y slapd ldap-utils
 echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
 echo -e "slapd slapd/root_password_again password test" |sudo debconf-set-selections
 sudo dpkg-reconfigure slapd
+echo -e "slapd slapd/password2 password test" |sudo debconf-set-selections
+echo -e "slapd slapd/password1 password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/generated_adminpw password test" |sudo debconf-set-selections
 echo -e "slapd slapd/no_configuration  boolean false" |sudo debconf-set-selections
 echo -e "slapd slapd/invalid_config    boolean true" |sudo debconf-set-selections
@@ -17,8 +19,6 @@ echo -e "slapd slapd/purge_database boolean true" |sudo debconf-set-selections
 echo -e "slapd slapd/dump_database_destdir string  /var/backups/slapd-VERSION" |sudo debconf-set-selections
 echo -e "slapd slapd/dump_database   select  when needed" |sudo debconf-set-selections
 echo -e "slapd slapd/move_old_database boolean true" |sudo debconf-set-selections
-echo -e "slapd slapd/password2 password test" |sudo debconf-set-selections
-echo -e "slapd slapd/password1 password test" |sudo debconf-set-selections
 echo -e "slapd slapd/password_mismatch note" |sudo debconf-set-selections
 echo -e "slapd slapd/ppolicy_schema_needs_update   select  abort installation" |sudo debconf-set-selections
 echo -e "slapd slapd/unsafe_selfwrite_acl  note" |sudo debconf-set-selections
