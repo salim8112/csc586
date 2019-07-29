@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo apt-get update
+sudo apt-get install -y debconf-utils
 export DEBIAN_FRONTEND=noninteractive
 
 echo -e "slapd slapd/internal/generated_adminpw  password test" |sudo debconf-set-selections
