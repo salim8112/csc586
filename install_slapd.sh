@@ -1,11 +1,12 @@
 #!/bin/bash
 
 sudo apt-get update
-sudo apt-get install -y debconf-utils
 export DEBIAN_FRONTEND=noninteractive
-
+sudo apt-get install -y slapd
 echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
 echo -e "slapd slapd/root_password_again password test" |sudo debconf-set-selections
+sudo apt-get install -y debconf-utils
+
 echo -e "slapd slapd/internal/generated_adminpw  password test" |sudo debconf-set-selections
 echo -e "slapd slapd/password2 password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/adminpw  password test" |sudo debconf-set-selections
