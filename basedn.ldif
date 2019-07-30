@@ -8,5 +8,5 @@ ou: Groups
 
 dn: cn=CSC,ou=Groups,dc=clemson,dc=cloudlab,dc=us
 objectClass: posixGroup
-cn: admin
+cn: csc586
 gidNumber: 5000
