@@ -1,10 +1,10 @@
 #!/bin/bash
-ADMIN_PASSWORD="test"
+ADMIN_PASSWORD="test12"
 sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
 echo -e " 
-ldap-auth-config        ldap-auth-config/rootbindpw     password test
-ldap-auth-config        ldap-auth-config/bindpw password test
+ldap-auth-config        ldap-auth-config/rootbindpw     password test12
+ldap-auth-config        ldap-auth-config/bindpw password test12
 ldap-auth-config        ldap-auth-config/binddn string  cn=proxyuser,dc=example,dc=net
 ldap-auth-config        ldap-auth-config/override       boolean true
 ldap-auth-config        ldap-auth-config/pam_password   select  md5
