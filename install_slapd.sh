@@ -3,12 +3,12 @@
 sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get install -y slapd ldap-utils
+echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
+echo -e "slapd slapd/root_password_again password test" |sudo debconf-set-selections
 echo -e "slapd slapd/password1 password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/adminpw password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/generated_adminpw password test" |sudo debconf-set-selections
 echo -e "slapd slapd/password2 password test" |sudo debconf-set-selections
-echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
-echo -e "slapd slapd/root_password_again password test" |sudo debconf-set-selections
 echo -e "slapd slapd/no_configuration  boolean false" |sudo debconf-set-selections
 echo -e "slapd slapd/invalid_config    boolean true" |sudo debconf-set-selections
 echo -e "slapd slapd/domain  string  clemson.cloudlab.us" |sudo debconf-set-selections
