@@ -2,34 +2,37 @@
 
 sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
-sudo apt-get install -y slapd ldap-utils
-echo -e "slapd slapd/root_password password test" |sudo debconf-set-selections
-echo -e "slapd slapd/root_password_again password test" |sudo debconf-set-selections
-echo -e "slapd slapd/password1 password test" |sudo debconf-set-selections
-echo -e "slapd slapd/internal/adminpw password test" |sudo debconf-set-selections
-echo -e "slapd slapd/internal/generated_adminpw password test" |sudo debconf-set-selections
-echo -e "slapd slapd/password2 password test" |sudo debconf-set-selections
-echo -e "slapd slapd/no_configuration  boolean false" |sudo debconf-set-selections
-echo -e "slapd slapd/invalid_config    boolean true" |sudo debconf-set-selections
-echo -e "slapd slapd/domain  string  clemson.cloudlab.us" |sudo debconf-set-selections
-echo -e "slapd shared/organization  string  clemson.cloudlab.us" |sudo debconf-set-selections
-echo -e "slapd slapd/backend  select  MDB" |sudo debconf-set-selections
-echo -e "slapd slapd/purge_database boolean true" |sudo debconf-set-selections
-echo -e "slapd slapd/dump_database_destdir string  /var/backups/slapd-VERSION" |sudo debconf-set-selections
-echo -e "slapd slapd/dump_database   select  when needed" |sudo debconf-set-selections
-echo -e "slapd slapd/move_old_database boolean true" |sudo debconf-set-selections
-echo -e "slapd slapd/password_mismatch note" |sudo debconf-set-selections
-echo -e "slapd slapd/ppolicy_schema_needs_update   select  abort installation" |sudo debconf-set-selections
-echo -e "slapd slapd/unsafe_selfwrite_acl  note" |sudo debconf-set-selections
-echo -e "slapd slapd/upgrade_slapcat_failure error" |sudo debconf-set-selections
-echo -e "slapd slapd/allow_ldap_v2 boolean false" |sudo debconf-set-selections
+
+echo -e " 
+slapd slapd/password1 password abcd123
+slapd slapd/internal/adminpw password abcd123
+slapd slapd/internal/generated_adminpw password abcd123
+slapd slapd/password2 password abcd123
+slapd slapd/root_password password abcd123
+slapd slapd/root_password_again password abcd123
+slapd slapd/unsafe_selfwrite_acl note
+slapd slapd/purge_database boolean false
+slapd slapd/domain string clemson.cloudlab.us
+slapd slapd/ppolicy_schema_needs_update select abort installation
+slapd slapd/invalid_config boolean true
+slapd slapd/move_old_database boolean false
+slapd slapd/backend select MDB
+slapd shared/organization string clemson.cloudlab.us
+slapd slapd/dump_database_destdir string /var/backups/slapd-VERSION
+slapd slapd/allow_ldap_v2 boolean false
+slapd slapd/no_configuration boolean false
+slapd slapd/dump_database select when needed
+slapd slapd/password_mismatch note
+" | sudo debconf-set-selections
 
 # Grab slapd and ldap-utils (pre-seeded)
-#sudo apt-get install -y slapd ldap-utils
-# Must reconfigure slapd for it to work properly 
-#sudo dpkg-reconfigure slapd 
-sudo ufw allow ldap
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f /local/repository/basedn.ldif
+sudo apt-get install -y slapd ldap-utils
+
+#sudo dpkg-reconfigure slapd
+
+sudo ufw allow ldap 
+
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w abcd123 -f /local/repository/basedn.ldif
 
 PASS=$(slappasswd -s rammy)
 cat <<EOF >/local/repository/users.ldif
@@ -49,7 +52,7 @@ gecos: Golden Ram
 loginShell: /bin/dash
 homeDirectory: /home/student
 EOF
-#add users
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w test -f /local/repository/users.ldif
-#test
+
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w abcd123 -f /local/repository/users.ldif 
+# Test LDAP
 ldapsearch -x -LLL -b dc=clemson,dc=cloudlab,dc=us 'uid=student' cn gidNumber
