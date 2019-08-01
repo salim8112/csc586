@@ -3,27 +3,25 @@
 sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
 
-echo -e " 
-slapd slapd/password1 password test12
-slapd slapd/internal/adminpw password test12
-slapd slapd/internal/generated_adminpw password test12
-slapd slapd/password2 password test12
-slapd slapd/root_password password test12
-slapd slapd/root_password_again password test12
-slapd slapd/unsafe_selfwrite_acl note
-slapd slapd/purge_database boolean false
-slapd slapd/domain string clemson.cloudlab.us
-slapd slapd/ppolicy_schema_needs_update select abort installation
-slapd slapd/invalid_config boolean true
-slapd slapd/move_old_database boolean false
-slapd slapd/backend select MDB
-slapd shared/organization string clemson.cloudlab.us
-slapd slapd/dump_database_destdir string /var/backups/slapd-VERSION
-slapd slapd/allow_ldap_v2 boolean false
-slapd slapd/no_configuration boolean false
-slapd slapd/dump_database select when needed
-slapd slapd/password_mismatch note
-" | sudo debconf-set-selections
+echo -e "slapd slapd/password1 password test12"|sudo debconf-set-selections
+echo -e "slapd slapd/internal/adminpw password test12"|sudo debconf-set-selections
+echo -e "slapd slapd/internal/generated_adminpw password test12"|sudo debconf-set-selections
+echo -e "slapd slapd/password2 password test12"|sudo debconf-set-selections
+echo -e "slapd slapd/root_password password test12"|sudo debconf-set-selections
+echo -e "slapd slapd/root_password_again password test12"|sudo debconf-set-selections
+echo -e "slapd slapd/unsafe_selfwrite_acl note"|sudo debconf-set-selections
+echo -e "slapd slapd/purge_database boolean false"|sudo debconf-set-selections
+echo -e "slapd slapd/domain string clemson.cloudlab.us"|sudo debconf-set-selections
+echo -e "slapd slapd/ppolicy_schema_needs_update select abort installation"|sudo debconf-set-selections
+echo -e "slapd slapd/invalid_config boolean true"|sudo debconf-set-selections
+echo -e "slapd slapd/move_old_database boolean false"|sudo debconf-set-selections
+echo -e "slapd slapd/backend select MDB"|sudo debconf-set-selections
+echo -e "slapd shared/organization string clemson.cloudlab.us"|sudo debconf-set-selections
+echo -e "slapd slapd/dump_database_destdir string /var/backups/slapd-VERSION"|sudo debconf-set-selections
+echo -e "slapd slapd/allow_ldap_v2 boolean false"|sudo debconf-set-selections
+echo -e "slapd slapd/no_configuration boolean false"|sudo debconf-set-selections
+echo -e "slapd slapd/dump_database select when needed"|sudo debconf-set-selections
+echo -e "slapd slapd/password_mismatch note"|sudo debconf-set-selections
 
 # Grab slapd and ldap-utils (pre-seeded)
 sudo apt-get install -y slapd ldap-utils
