@@ -32,6 +32,3 @@ sudo bash <<EOF
 echo $ADMIN_PASSWORD > /etc/ldap.secret
 EOF
 sudo chmod 600 /etc/ldap.secret
-
-getent passwd student
-sudo su - student
