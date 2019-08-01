@@ -1,8 +1,8 @@
-#!/bin/bash
+#! /bin/bash
 
 sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
-
+sudo apt-get install -y slapd ldap-utils
 echo -e "slapd slapd/password1 password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/adminpw password test" |sudo debconf-set-selections
 echo -e "slapd slapd/internal/generated_adminpw password test" |sudo debconf-set-selections
@@ -25,7 +25,7 @@ echo -e "slapd slapd/upgrade_slapcat_failure error" |sudo debconf-set-selections
 echo -e "slapd slapd/allow_ldap_v2 boolean false" |sudo debconf-set-selections
 
 # Grab slapd and ldap-utils (pre-seeded)
-sudo apt-get install -y slapd ldap-utils
+#sudo apt-get install -y slapd ldap-utils
 # Must reconfigure slapd for it to work properly 
 #sudo dpkg-reconfigure slapd 
 sudo ufw allow ldap
